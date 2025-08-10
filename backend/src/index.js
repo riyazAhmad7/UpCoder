@@ -25,6 +25,14 @@ const {
 } = require("./controllers/leaderboardController");
 const cron = require("node-cron");
 
+// In production, silence noisy logs (keep errors)
+if (process.env.NODE_ENV === "production") {
+  const noop = () => {};
+  console.log = noop;
+  console.debug = noop;
+  console.warn = noop;
+}
+
 const PORT_NO = process.env.PORT_NO || 3000;
 const USE_RATE_LIMITER = process.env.ENABLE_RATE_LIMITER === "true";
 
