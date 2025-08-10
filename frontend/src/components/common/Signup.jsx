@@ -115,6 +115,9 @@ const Signup = () => {
                   {...register("emailId")}
                   placeholder="2143008@sliet.ac.in"
                 />
+                 <p id="email-help" className="text-xs text-gray-400 mt-1">
+                  We’ll use this email for password resets and important account notifications.
+                </p>
                 {errors.emailId && (
                   <span className="text-red-400 text-sm mt-1 block">
                     {errors.emailId.message}
