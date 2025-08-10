@@ -67,6 +67,17 @@ const ProblemPage = () => {
 
   const { handleSubmit } = useForm();
 
+  // Ensure multi-line code displays correctly even if stored with escaped \n/\t
+  const formatSolutionForDisplay = (code) => {
+    if (!code || typeof code !== "string") return "";
+    // Convert common escaped sequences to real whitespace
+    let out = code
+      .replace(/\\r\\n/g, "\n")
+      .replace(/\\n/g, "\n")
+      .replace(/\\t/g, "\t");
+    return out;
+  };
+
   const languages = [
     { id: "cpp", name: "C++", icon: "⚡" },
     { id: "java", name: "Java", icon: "☕" },
@@ -130,7 +141,7 @@ const ProblemPage = () => {
           }
           return backendLang === selectedLanguage;
         })?.initialCode || "";
-      setCode(initialCode);
+      setCode(formatSolutionForDisplay(initialCode));
     }
   }, [selectedLanguage, problem]);
 
@@ -304,7 +315,7 @@ const ProblemPage = () => {
           <NavLink to="/" className="hover:opacity-80 transition-opacity">
             <div className="flex items-center space-x-2">
               <img src={UpCoderlogo} alt="UpCoder" className="h-8" />
-              <h1 className="text-xl font-bold text-white bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">
+              <h1 className="text-xl font-bold bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">
                 UpCoder
               </h1>
             </div>
@@ -551,8 +562,12 @@ const ProblemPage = () => {
                             </h3>
                           </div>
                           <div className="p-4">
-                            <pre className="bg-gray-950 p-4 rounded text-sm overflow-x-auto text-gray-300 border border-gray-800">
-                              <code>{solution.completeCode}</code>
+                            <pre className="bg-gray-950 p-4 rounded text-sm overflow-x-auto text-gray-300 border border-gray-800 whitespace-pre">
+                              <code>
+                                {formatSolutionForDisplay(
+                                  solution.completeCode
+                                )}
+                              </code>
                             </pre>
                           </div>
                         </div>
