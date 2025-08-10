@@ -6,7 +6,7 @@ const redisClient = redis.createClient({
   socket: {
     host: process.env.REDIS_STRING,
     port: process.env.REDIS_PORT_NO,
-    tls: true, // Required for Upstash Redis
+    tls: process.env.REDIS_TLS === "true", // Enable TLS for providers like Upstash
   },
   // Add retry strategy for connection issues
   retry_strategy: function (options) {

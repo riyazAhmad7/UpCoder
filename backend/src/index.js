@@ -25,18 +25,34 @@ const {
 } = require("./controllers/leaderboardController");
 const cron = require("node-cron");
 
-const PORT_NO = process.env.PORT_NO;
+const PORT_NO = process.env.PORT_NO || 3000;
+const USE_RATE_LIMITER = process.env.ENABLE_RATE_LIMITER === "true";
+
+// Parse allowed origins from env (comma-separated), fallback to localhost and existing domain
+const allowedOrigins = (
+  process.env.ALLOWED_ORIGINS || "http://localhost:5173,https://UpCoder.live"
+)
+  .split(",")
+  .map((o) => o.trim())
+  .filter(Boolean);
+
+// Trust proxy if behind load balancer / reverse proxy (needed for correct req.ip and secure cookies)
+if (process.env.TRUST_PROXY === "true") {
+  app.set("trust proxy", 1);
+}
 
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://UpCoder.live"],
+    origin: allowedOrigins,
     credentials: true,
   })
 );
 
 app.use(express.json());
 app.use(cookieParser());
-// app.use(rateLimiter)
+if (USE_RATE_LIMITER) {
+  app.use(rateLimiter);
+}
 
 // routing.
 app.use("/api/user", authRouter);
