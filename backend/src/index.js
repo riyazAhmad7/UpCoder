@@ -68,7 +68,7 @@ app.use("/api/discussions", discussionRouter);
 
 // Health check route
 app.get("/", (req, res) => {
-  res.send("Welcome to the UpCoder API");
+  res.send("Backend is running!!");
 });
 
 const initialConnection = async () => {
