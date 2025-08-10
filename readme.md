@@ -1,111 +1,195 @@
-# 🚀 UpCoder – The Next-Gen Competitive Programming & AI-Powered Coding Platform
+# 🚀 UpCoder — Modern AI-Powered Coding Platform
 
-![UpCoder Banner](https://via.placeholder.com/1200x400.png?text=UpCoder+Platform)
+> **By:** Riyaz Ahmad  
+> **Date:** June 4, 2025  
+> **Version:** 1.0  
 
-> **UpCoder** is a modern, feature-packed coding platform that combines **DSA practice**, **real-time contests**, **AI-powered assistance**, and **community interaction** to help developers master problem-solving, prepare for interviews, and compete globally.
-
----
-
-## 📋 Overview
-
-UpCoder provides:
-- 💻 **Problem Solving Engine** – 40+ categories, multi-language support, Judge0 execution.
-- 🏆 **Contest System** – Real-time leaderboards, scoring, and automated finalization.
-- 🤖 **AI Assistant** – Powered by Google Gemini for explanations, mock interviews, and guidance.
-- 💬 **Community Features** – Forums, live discussions, and reputation tracking.
-- 📊 **Analytics Dashboard** – Progress tracking, streaks, rankings, and submission history.
-- 💳 **Premium Membership** – Unlock exclusive problems, unlimited AI access, and more.
+UpCoder is a **comprehensive coding platform** that blends **competitive programming**, **interview preparation**, **AI assistance**, and **community-driven learning** into one unified experience.  
+Built with a **modern tech stack**, it offers **real-time contests**, **AI-powered help**, **payment integration**, and a powerful **admin panel**.
 
 ---
 
-## 🛠 Tech Stack
+## 📸 Screenshots
+
+> _Add your platform screenshots here for homepage, contest page, problem-solving view, AI assistant, and admin panel._
+
+---
+
+## 📋 Table of Contents
+1. [Overview](#-overview)
+2. [Core Technology Stack](#-core-technology-stack)
+3. [Features](#-features)
+4. [Technical Architecture](#-technical-architecture)
+5. [Deployment & Infrastructure](#-deployment--infrastructure)
+6. [Key Metrics & Performance](#-key-metrics--performance)
+7. [Development Workflow](#-development-workflow)
+8. [Contribution Areas](#-contribution-areas)
+9. [Conclusion](#-conclusion)
+10. [License](#-license)
+
+---
+
+## 🌟 Overview
+
+**Purpose:**  
+Help developers **master DSA**, **crack interviews**, and **compete globally** in coding challenges.
+
+**Highlights:**
+- Competitive programming with **real-time contests**
+- AI-powered coding help and **mock interviews**
+- Gamification, leaderboards, and streak tracking
+- Premium subscription model with **Razorpay integration**
+- Rich admin panel for **content & user management**
+
+---
+
+## 🔧 Core Technology Stack
 
 ### **Backend**
-![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat&logo=node.js&logoColor=white)
-![Express.js](https://img.shields.io/badge/Express.js-000000?style=flat&logo=express&logoColor=white)
-![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=flat&logo=mongodb&logoColor=white)
-![Redis](https://img.shields.io/badge/Redis-DC382D?style=flat&logo=redis&logoColor=white)
-![Socket.IO](https://img.shields.io/badge/Socket.IO-010101?style=flat&logo=socket.io&logoColor=white)
-![JWT](https://img.shields.io/badge/JWT-black?style=flat&logo=jsonwebtokens)
-![Cloudinary](https://img.shields.io/badge/Cloudinary-3448C5?style=flat&logo=cloudinary&logoColor=white)
-![Razorpay](https://img.shields.io/badge/Razorpay-072B5E?style=flat&logo=razorpay&logoColor=white)
+- ![Node.js](https://img.shields.io/badge/Node.js-339933?logo=node.js&logoColor=white) **Node.js**
+- ![Express.js](https://img.shields.io/badge/Express.js-000000?logo=express&logoColor=white) **Express.js**
+- ![MongoDB](https://img.shields.io/badge/MongoDB-47A248?logo=mongodb&logoColor=white) **MongoDB + Mongoose**
+- ![Redis](https://img.shields.io/badge/Redis-DC382D?logo=redis&logoColor=white) **Redis** (Caching & Session)
+- ![JWT](https://img.shields.io/badge/JWT-000000?logo=jsonwebtokens&logoColor=white) **JWT Authentication**
+- ![Cloudinary](https://img.shields.io/badge/Cloudinary-4285F4?logo=cloudinary&logoColor=white) **Cloudinary** (Media Storage)
+- ![Razorpay](https://img.shields.io/badge/Razorpay-0C72B8?logo=razorpay&logoColor=white) **Razorpay** (Payments)
+- AI: **Google Gemini API**
+- Code Execution: **Judge0 API**
+- Scheduling: **node-cron**
+- File Upload: **Multer**
+- Email: **Nodemailer**
 
 ### **Frontend**
-![React](https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=black)
-![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat&logo=vite&logoColor=white)
-![Redux](https://img.shields.io/badge/Redux_Toolkit-764ABC?style=flat&logo=redux&logoColor=white)
-![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat&logo=tailwind-css&logoColor=white)
-![Monaco Editor](https://img.shields.io/badge/Monaco_Editor-007ACC?style=flat&logo=visual-studio-code&logoColor=white)
-![Framer Motion](https://img.shields.io/badge/Framer_Motion-black?style=flat&logo=framer&logoColor=white)
+- ![React](https://img.shields.io/badge/React-61DAFB?logo=react&logoColor=black) **React.js (Vite)**
+- ![Redux](https://img.shields.io/badge/Redux-764ABC?logo=redux&logoColor=white) **Redux Toolkit**
+- ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?logo=tailwindcss&logoColor=white) **Tailwind CSS** + **DaisyUI**
+- Code Editor: **Monaco Editor**
+- Animations: **GSAP**, **Framer Motion**
+- Charts: **Recharts**, **React Calendar Heatmap**
+- Forms & Validation: **React Hook Form** + **Zod**
+- Syntax Highlighting: **Prism.js**, **React Syntax Highlighter**
+- Routing: **React Router DOM**
+- Notifications: **React Toastify**, **Sonner**
 
 ---
 
 ## 🎯 Features
 
-### 1️⃣ **User Management**
-- Role-based access (User/Admin)
-- JWT authentication & Redis sessions
-- Profile with social links, stats, and streak tracking
-- Cloudinary profile images & auto-generated avatars
+### 👤 **User Management**
+- Email/Password auth with **JWT**
+- Google OAuth login
+- Profile customization with Cloudinary uploads
+- Role-based access: **User/Admin**
+- Problem-solving statistics & streak tracking
+- Payment history & premium status display
 
-### 2️⃣ **Problem Solving Engine**
-- 40+ DSA categories (arrays, graphs, DP, etc.)
-- Multi-language: **Python, C++, Java**
-- Judge0 API execution
-- Real-time feedback with runtime & memory stats
-- Monaco Editor with themes, syntax highlighting, and auto-complete
+---
 
-### 3️⃣ **Contest System**
-- Time-bound public/private contests
-- Real-time leaderboards & scoring
-- Automated contest finalization via cron jobs
-- Contest history & rankings
+### 💻 **Problem Solving Engine**
+- Rich-text problem statements
+- **40+ problem tags** (DSA, algorithms, advanced data structures)
+- **Multi-language** execution (Python, Java, C++)
+- Hidden/visible test cases
+- Real-time execution with Judge0 API
+- Submission history, runtime, memory usage tracking
+- Monaco Editor with syntax highlighting, autocomplete, and themes
 
-### 4️⃣ **AI-Powered Assistance**
-- **Gemini AI**-based code explanations
-- AI-driven mock interviews with voice feedback
-- Context-aware platform navigation
-- Token-based AI usage control
+---
 
-### 5️⃣ **Analytics & Dashboard**
-- Progress tracking by difficulty
-- GitHub-style heatmap
-- Global ranking display
-- Submission history with detailed results
+### 🏆 **Contest System**
+- Public & private contests
+- Real-time participation tracking
+- Automatic scoring based on correctness & speed
+- Live leaderboards with Socket.IO
+- Cron jobs for contest finalization
 
-### 6️⃣ **Community & Discussions**
-- Problem-specific forums
+---
+
+### 🤖 **AI-Powered Features**
+- AI coding assistant for problem-solving help
+- AI-generated code explanations
+- Voice/text platform navigation
+- AI-based mock interviews with real-time feedback
+- Resume-based personalized interview questions
+- Streaming AI responses with **Google Gemini API**
+
+---
+
+### 📊 **Analytics & Dashboard**
+- Problem-solving progress tracking
+- GitHub-style activity heatmap
+- Streak tracking
+- Global ranking system
+- Submission history with status breakdown
+- Admin analytics for platform statistics
+
+---
+
+### 💬 **Community Features**
+- Problem-specific & general discussion forums
 - Real-time chat with Socket.IO
-- Upvote/downvote system & reputation tracking
-- Typing indicators and thread replies
-
-### 7️⃣ **Learning Resources**
-- Video explanations for problems
-- Curated playlists for topics
-- Progress tracking within playlists
-
-### 8️⃣ **Premium Membership**
-- Unlimited AI queries
-- Exclusive premium problems
-- Advanced analytics & priority support
-
-### 9️⃣ **Data Structure Visualizer**
-- Interactive visualizations for arrays, stacks, queues, trees, graphs, sorting
-- Step-by-step execution with speed control
-
-### 🔟 **Admin Panel**
-- Full problem & contest management
-- User moderation & analytics dashboard
-- Video content management
----
-
-## 📜 License
-This project is licensed under the **MIT License** – see the [LICENSE](LICENSE) file for details.
+- Typing indicators, message threading
+- Room-based discussion management
 
 ---
 
-## 👨‍💻 Developer
-**Riyaz Ahmad**  
-
+### 💳 **Premium Features**
+- Subscription tiers: Starter (₹199), Pro (₹499), Ultimate (₹799)
+- Unlimited AI usage, exclusive problems, advanced analytics
+- Secure payments with Razorpay
+- Webhooks for payment status updates
 
 ---
+
+### ⚙️ **Admin Panel**
+- CRUD for problems & contests
+- User role & account management
+- Video uploads (Cloudinary)
+- Platform analytics & monitoring
+
+---
+
+## 🛠 Technical Architecture
+
+### Database Schemas
+- **User Schema:** Auth, profile, progress, premium, payments
+- **Problem Schema:** Title, description, tags, difficulty, test cases
+- **Submission Schema:** Code, results, scoring
+- **Contest Schema:** Info, problems, participants, access
+- **Discussion Schema:** Threads, comments, votes
+
+### API Routes
+- `/api/user` — Authentication & profile
+- `/api/problem` — Problems CRUD
+- `/api/submission` — Code submission
+- `/api/contest` — Contest management
+- `/api/ai` — AI assistant & interviews
+
+### Real-time Events (Socket.IO)
+- Chat messages, typing indicators
+- Contest updates, leaderboard changes
+- Submission results
+
+---
+
+## 🚀 Deployment & Infrastructure
+- **Database:** MongoDB Atlas
+- **Media:** Cloudinary CDN
+- **Cache:** Redis
+- **Security:** bcrypt password hashing, CORS, rate limiting, input validation
+
+---
+
+## 📈 Key Metrics & Performance
+- Daily Active Users, streaks, contest participation rates
+- Redis caching for frequent queries
+- MongoDB indexing for speed
+- Lazy loading & React.memo optimizations
+
+---
+
+## 🔄 Development Workflow
+**Backend:**
+```bash
+npm start
+npm install
