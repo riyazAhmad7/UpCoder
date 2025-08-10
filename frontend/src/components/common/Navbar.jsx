@@ -130,7 +130,6 @@ const Navbar = () => {
                 to="/"
                 className="group relative overflow-hidden flex items-center space-x-3"
               >
-                
                 <div className="hidden lg:block">
                   <h1 className="text-lg font-bold mt-[-7px] bg-gradient-to-r from-orange-400 via-amber-400 to-yellow-400 bg-clip-text text-transparent">
                     UpCoder
@@ -265,7 +264,9 @@ const Navbar = () => {
                           <span>{user?.firstName}</span>
                         </p>
                         <p className="text-xs text-slate-400 capitalize">
-                          {user?.isPremium
+                          {user?.role === "admin"
+                            ? "Admin"
+                            : user?.isPremium
                             ? "Premium Member"
                             : user?.role || "User"}
                         </p>
@@ -331,7 +332,9 @@ const Navbar = () => {
                                 </p>
                                 <p className="text-sm text-slate-400 capitalize flex items-center space-x-2">
                                   <span>
-                                    {user?.isPremium
+                                    {user?.role === "admin"
+                                      ? "Admin"
+                                      : user?.isPremium
                                       ? "Premium Member"
                                       : user?.role || "User"}
                                   </span>
