@@ -47,7 +47,11 @@ const requestPasswordResetOTP = async (req, res) => {
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
-    const resetLink = `${"http://localhost:5173"}/reset-password/${token}`;
+  
+    const frontendBase = (
+      process.env.FRONTEND_URL || "http://localhost:5173"
+    ).replace(/\/$/, "");
+    const resetLink = `${frontendBase}/reset-password/${token}`;
 
     const template = emailTemplates.passwordReset(user.firstName, resetLink);
     const mailOptions = {
