@@ -1,0 +1,272 @@
+import React, { useEffect } from "react";
+import { Route, Routes, Navigate, useParams } from "react-router-dom";
+import Homepage from "./pages/Homepage";
+import Login from "./components/common/Login";
+import Signup from "./components/common/Signup";
+import { useDispatch, useSelector } from "react-redux";
+import { checkAuth, getProfile } from "./slice/authSlice";
+import Problem from "./pages/Problem";
+import ProblemSolve from "./pages/ProblemSolve";
+import AdminPage from "./pages/AdminPage";
+import CreateProblem from "./components/Admin/CreateProblem";
+import UpdateProblem from "./components/Admin/UpdateProblem";
+import DeleteProblem from "./components/Admin/DeleteProblem";
+import UserManagement from "./components/Admin/UserManagement";
+import PlatformAnalytics from "./components/Admin/PlatformAnalytics";
+
+import Premium from "./components/common/Premium";
+import Interview from "./pages/Interview";
+
+import AdminContest from "./components/Admin/contest/AdminContest";
+import ContestPage from "../src/pages/ContestPage";
+import ContestDetail from "./components/Admin/contest/ContestDetail";
+import ContestDetails from "./components/contest/ContestDetails";
+import ContestProblemSolve from "./components/contest/ContestProblemSolve";
+import ContestLeaderboard from "./components/contest/ContestLeaderboard";
+import PlaylistDetail from "./components/common/PlaylistDetail";
+import DashboardPage from "./components/Dashboards/DashboardPage";
+import UserProfile from "./pages/UserProfile";
+import DiscussPage from "./pages/DiscussPage";
+import DiscussionDetail from "./pages/DiscussionDetail";
+import { ContestProvider } from "./context/ContestContext";
+
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
+import DobutAi from "./components/common/DoubtAi";
+import { initializeSocket } from "./utils/socket";
+
+const ContestLeaderboardWrapper = () => {
+  const { contestId } = useParams();
+  return <ContestLeaderboard contestId={contestId} isContestActive={true} />;
+};
+
+const App = () => {
+  const { isAuthenticated, loading, user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        await dispatch(checkAuth()).unwrap();
+        dispatch(getProfile());
+      } catch (error) {
+        // Silently handle authentication errors
+      }
+    };
+    fetchProfile();
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      const token = localStorage.getItem("token");
+      if (token) {
+        initializeSocket(token);
+      }
+    }
+  }, [isAuthenticated]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <span className="loading loading-spinner loading-lg"></span>
+      </div>
+    );
+  }
+
+  return (
+    <>
+      <div>
+        <ContestProvider>
+          <Routes>
+            <Route path="/" element={<Homepage />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/forgotpassword" element={<ForgotPassword />} />
+            <Route path="/reset-password/:token" element={<ResetPassword />} />
+            <Route
+              path="/dashboard"
+              element={
+                isAuthenticated ? <DashboardPage /> : <Navigate to={"/login"} />
+              }
+            />
+            <Route
+              path="/interview"
+              element={
+                isAuthenticated ? <Interview /> : <Navigate to={"/login"} />
+              }
+            />
+            <Route
+              path="/problems"
+              element={
+                isAuthenticated ? <Problem /> : <Navigate to={"/login"} />
+              }
+            />
+            <Route
+              path="/playlists/:id"
+              element={
+                isAuthenticated ? (
+                  <PlaylistDetail />
+                ) : (
+                  <Navigate to={"/login"} />
+                )
+              }
+            />
+            <Route path="/problem/:problemId" element={<ProblemSolve />} />
+            <Route
+              path="/admin"
+              element={
+                isAuthenticated && user?.role === "admin" ? (
+                  <AdminPage />
+                ) : (
+                  <Navigate to={"/login"} />
+                )
+              }
+            />
+            <Route
+              path="/admin/create"
+              element={
+                isAuthenticated && user?.role === "admin" ? (
+                  <CreateProblem />
+                ) : (
+                  <Navigate to={"/login"} />
+                )
+              }
+            />
+            <Route
+              path="/admin/update"
+              element={
+                isAuthenticated && user?.role === "admin" ? (
+                  <UpdateProblem />
+                ) : (
+                  <Navigate to={"/login"} />
+                )
+              }
+            />
+            <Route
+              path="/admin/delete"
+              element={
+                isAuthenticated && user?.role === "admin" ? (
+                  <DeleteProblem />
+                ) : (
+                  <Navigate to={"/login"} />
+                )
+              }
+            />
+            <Route
+              path="/admin/users"
+              element={
+                isAuthenticated && user?.role === "admin" ? (
+                  <UserManagement />
+                ) : (
+                  <Navigate to={"/login"} />
+                )
+              }
+            />
+            <Route
+              path="/admin/analytics"
+              element={
+                isAuthenticated && user?.role === "admin" ? (
+                  <PlatformAnalytics />
+                ) : (
+                  <Navigate to={"/login"} />
+                )
+              }
+            />
+            <Route
+              path="/admin/contest"
+              element={
+                isAuthenticated && user?.role === "admin" ? (
+                  <AdminContest />
+                ) : (
+                  <Navigate to={"/login"} />
+                )
+              }
+            />
+            <Route
+              path="/contest"
+              element={
+                isAuthenticated ? <ContestPage /> : <Navigate to={"/login"} />
+              }
+            />
+            <Route
+              path="/contest/:contestId"
+              element={
+                isAuthenticated ? (
+                  <ContestDetails />
+                ) : (
+                  <Navigate to={"/login"} />
+                )
+              }
+            />
+            <Route
+              path="/admin/contest/:id"
+              element={
+                isAuthenticated && user?.role === "admin" ? (
+                  <ContestDetail />
+                ) : (
+                  <Navigate to={"/login"} />
+                )
+              }
+            />
+            <Route
+              path="/contest/:contestId/problem/:problemId"
+              element={
+                isAuthenticated ? (
+                  <ContestProblemSolve />
+                ) : (
+                  <Navigate to={"/login"} />
+                )
+              }
+            />
+            <Route
+              path="/contest/:contestId/leaderboard"
+              element={
+                isAuthenticated ? (
+                  <ContestLeaderboardWrapper />
+                ) : (
+                  <Navigate to={"/login"} />
+                )
+              }
+            />
+            <Route
+              path="/premium"
+              element={
+                isAuthenticated ? <Premium /> : <Navigate to={"/login"} />
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                isAuthenticated ? <UserProfile /> : <Navigate to={"/login"} />
+              }
+            />
+            <Route
+              path="/discuss"
+              element={
+                isAuthenticated ? <DiscussPage /> : <Navigate to={"/login"} />
+              }
+            />
+            <Route
+              path="/discuss/:discussionId"
+              element={
+                isAuthenticated ? (
+                  <DiscussionDetail />
+                ) : (
+                  <Navigate to={"/login"} />
+                )
+              }
+            />
+            <Route
+              path="/doubt-ai"
+              element={
+                isAuthenticated ? <DobutAi /> : <Navigate to={"/login"} />
+              }
+            />
+          </Routes>
+        </ContestProvider>
+      </div>
+    </>
+  );
+};
+
+export default App;

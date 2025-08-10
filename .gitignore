@@ -1,0 +1,36 @@
+# Dependencies
+node_modules/
+
+# Environment files
+.env
+**/.env
+backend/.env
+frontend/.env
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Builds
+/dist
+build/
+
+# Uploads and generated files
+uploads/
+backend/uploads/
+
+# IDE/editor
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Local helper scripts (do not commit)
+backend/createAdmin.js
+backend/autoPostScript.js
+backend/Problems.js
+
+# Personal notes
+notes.txt
+notes2.txt
