@@ -160,7 +160,7 @@ Riyaz Ahmad - Owner, UpCoder`,
                 <div class="reset-container">
                     <h3 style="color: #92400e; margin-bottom: 20px; font-size: 18px; font-weight: 600;">Reset Your Password</h3>
                     <p style="color: #92400e; margin-bottom: 20px; font-size: 15px;">Click the button below to securely reset your password:</p>
-                    <a href="${resetLink}" class="reset-button">Reset Password</a>
+                    <a href="${resetLink}" class="reset-button" style="color:#ffffff !important; text-decoration:none !important;">Reset Password</a>
                     <div class="expiry-text">This link expires in 1 hour for your security</div>
                 </div>
                 
