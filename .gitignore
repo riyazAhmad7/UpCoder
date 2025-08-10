@@ -29,7 +29,7 @@ Thumbs.db
 # Local helper scripts (do not commit)
 backend/createAdmin.js
 backend/autoPostScript.js
-backend/Problems.js
+backend/ProblemList.json
 
 # Personal notes
 notes.txt
