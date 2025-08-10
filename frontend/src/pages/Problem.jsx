@@ -23,7 +23,6 @@ import {
   Eye,
   BookOpen,
   Code,
-  TrendingUp,
   Award,
   Flame,
   ArrowLeft,
@@ -244,8 +243,7 @@ const Problem = () => {
         return diffOrder[a.difficulty] - diffOrder[b.difficulty];
       case "title":
         return a.title.localeCompare(b.title);
-      case "acceptance":
-        return (b.acceptance || 0) - (a.acceptance || 0);
+      // acceptance removed
       default:
         return 0;
     }
@@ -364,7 +362,7 @@ const Problem = () => {
                     title: problemToAdd.title,
                     difficulty: problemToAdd.difficulty,
                     tags: problemToAdd.tags,
-                    acceptance: problemToAdd.acceptance,
+                    // acceptance removed from UI
                   },
                 ],
               }
@@ -443,7 +441,7 @@ const Problem = () => {
           <div className="absolute inset-0 bg-gradient-to-r from-orange-500/5 via-transparent to-purple-500/5"></div>
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,rgba(251,146,60,0.05),transparent_50%)]"></div>
 
-          <div className="relative bg-slate-800/50 backdrop-blur-xl border-b border-slate-700/50 sticky top-0 z-10">
+          <div className="bg-slate-800/50 backdrop-blur-xl border-b border-slate-700/50 sticky top-0 z-10">
             <div className="container mx-auto px-6 py-8">
               {/* Navigation Header */}
               <div className="flex items-center justify-between mb-8">
@@ -757,7 +755,7 @@ const Problem = () => {
                       >
                         <option value="title">Sort by Title</option>
                         <option value="difficulty">Sort by Difficulty</option>
-                        <option value="acceptance">Sort by Acceptance</option>
+                        {/* Acceptance sort removed */}
                       </select>
                       <ArrowUpDown className="absolute right-4 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
                     </div>
@@ -1049,14 +1047,7 @@ const Problem = () => {
                             </span>
                           </div>
                         )}
-                        {problem.acceptance && (
-                          <div className="flex items-center gap-1 px-3 py-1.5 bg-slate-700/50 rounded-lg border border-slate-600/30">
-                            <TrendingUp className="w-3 h-3 text-blue-400" />
-                            <span className="text-xs text-slate-300 font-medium">
-                              {problem.acceptance}%
-                            </span>
-                          </div>
-                        )}
+                        {/* Acceptance pill removed */}
                       </div>
 
                       {problem.description && (
@@ -1104,7 +1095,7 @@ const Problem = () => {
                           to={`/problem/${problem._id}`}
                           className="block"
                         >
-                          <button className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold rounded-xl shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40 transition-all duration-300 transform hover:scale-105">
+                          <button className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-slate-600/70 hover:bg-slate-500/80 text-white font-semibold rounded-xl border border-slate-500/40 shadow-sm transition-all duration-300">
                             <Rocket className="w-4 h-4" />
                             Start Solving
                             <ChevronRight className="w-4 h-4" />
@@ -1137,9 +1128,7 @@ const Problem = () => {
                       <th className="px-8 py-6 text-left text-sm font-bold text-slate-200 uppercase tracking-wider">
                         Company
                       </th>
-                      <th className="px-8 py-6 text-left text-sm font-bold text-slate-200 uppercase tracking-wider">
-                        Acceptance
-                      </th>
+                      {/* Acceptance column removed */}
                       <th className="px-8 py-6 text-left text-sm font-bold text-slate-200 uppercase tracking-wider">
                         Actions
                       </th>
@@ -1239,16 +1228,7 @@ const Problem = () => {
                             </div>
                           )}
                         </td>
-                        <td className="px-8 py-6">
-                          <div className="flex items-center gap-2">
-                            <TrendingUp className="w-4 h-4 text-blue-400" />
-                            <span className="text-slate-300 font-medium">
-                              {problem.acceptance
-                                ? `${problem.acceptance}%`
-                                : "N/A"}
-                            </span>
-                          </div>
-                        </td>
+                        {/* Acceptance cell removed */}
                         <td className="px-8 py-6">
                           <div className="flex items-center gap-3">
                             {user && (
@@ -1264,7 +1244,7 @@ const Problem = () => {
                               </button>
                             )}
                             <NavLink to={`/problem/${problem._id}`}>
-                              <button className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold rounded-xl shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40 transition-all duration-300 transform hover:scale-105">
+                              <button className="flex items-center gap-2 px-4 py-2.5 bg-slate-600/70 hover:bg-slate-500/80 text-white font-semibold rounded-xl border border-slate-500/40 shadow-sm transition-all duration-300">
                                 <Rocket className="w-4 h-4" />
                                 Solve
                               </button>
