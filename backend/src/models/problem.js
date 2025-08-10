@@ -110,13 +110,10 @@ const ProblemSchema = new Schema(
       {
         input: {
           type: String,
-          required: true,
           default: "",
-          
         },
         output: {
           type: String,
-          required: true,
           default: "",
         },
         explanation: {
