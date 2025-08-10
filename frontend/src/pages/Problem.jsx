@@ -133,8 +133,8 @@ const Problem = () => {
 
         const fetchedProblems = problemsRes.data || [];
         setAllProblems(fetchedProblems);
-        setProblems(fetchedProblems.slice(0, 15));
-        setHasMore(fetchedProblems.length > 15);
+        setProblems(fetchedProblems);
+        setHasMore(false);
         setPage(1);
         if (user && initialLoad) {
           setPlaylists(playlistsRes.data?.data || playlistsRes.data || []);
