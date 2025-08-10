@@ -111,14 +111,18 @@ const ProblemSchema = new Schema(
         input: {
           type: String,
           required: true,
+          default: "",
+          
         },
         output: {
           type: String,
           required: true,
+          default: "",
         },
         explanation: {
           type: String,
           required: true,
+          default: "",
         },
       },
     ],
@@ -126,11 +130,11 @@ const ProblemSchema = new Schema(
       {
         input: {
           type: String,
-          required: true,
+          default: "",
         },
         output: {
           type: String,
-          required: true,
+          default: "",
         },
       },
     ],

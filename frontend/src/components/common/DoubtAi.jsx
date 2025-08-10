@@ -589,8 +589,7 @@ function DobutAi({ problem }) {
               </span>
             </div>
           </div>
-        </div>
-      </div>
+        </div>      </div>
 
       {/* Messages */}
       <div className="flex-1 overflow-y-auto p-4 space-y-6 bg-gradient-to-b from-gray-900/80 via-gray-900 to-gray-900">
