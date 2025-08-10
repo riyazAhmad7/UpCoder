@@ -66,6 +66,11 @@ app.use("/api/contest", contestRouter);
 app.use("/api/playlists", playlistRouter);
 app.use("/api/discussions", discussionRouter);
 
+// Health check route
+app.get("/", (req, res) => {
+  res.send("Welcome to the UpCoder API");
+});
+
 const initialConnection = async () => {
   try {
     // Connect to MongoDB
