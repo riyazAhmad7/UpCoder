@@ -6,7 +6,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
-import { forgotPasswordThunk } from "../slice/authSlice";
+import {
+  forgotPasswordThunk,
+  resetPasswordResetState,
+} from "../slice/authSlice";
+import { useEffect } from "react";
 
 const forgotPasswordSchema = z.object({
   emailId: z.string().email("Invalid Email"),
@@ -14,10 +18,18 @@ const forgotPasswordSchema = z.object({
 
 const ForgotPassword = () => {
   const dispatch = useDispatch();
-  const { loading, error, forgotPasswordSuccess } = useSelector(
+  const { loading, error, requestPasswordResetOTPSuccess } = useSelector(
     (state) => state.auth
   );
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  // Clear any previous success/error state when this screen mounts
+  useEffect(() => {
+    return () => {
+      // Reset flags when leaving the screen
+      dispatch(resetPasswordResetState());
+    };
+  }, [dispatch]);
 
   const {
     register,
@@ -69,7 +81,7 @@ const ForgotPassword = () => {
             </p>
           </div>
 
-          {isSubmitted || forgotPasswordSuccess ? (
+          {isSubmitted || requestPasswordResetOTPSuccess ? (
             <div className="text-center">
               <div className="mb-4 p-4 bg-green-500/10 border border-green-500/30 rounded-lg">
                 <p className="text-green-400 font-medium mb-2">
