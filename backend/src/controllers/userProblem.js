@@ -228,11 +228,7 @@ const submittedProblem = async (req, res) => {
   }
 };
 
-// Add these new controller methods to your existing file
 
-/**
- * Get problems solved by user with additional details for profile
- */
 const getProfileProblemsSolved = async (req, res) => {
   try {
     const userId = req.result._id;
