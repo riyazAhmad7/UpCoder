@@ -6,14 +6,16 @@ const userScehma = Schema(
     firstName: {
       type: String,
       required: true,
-      minLength: 3,
-      maxLength: 20,
+      minlength: [3, "First name must be at least 3 characters"],
+      maxlength: [20, "First name must be at most 20 characters"],
+      trim: true,
     },
     lastName: {
       type: String,
-      minLength: 3,
-      maxLength: 20,
+      minlength: [3, "Last name must be at least 3 characters"],
+      maxlength: [20, "Last name must be at most 20 characters"],
       required: false,
+      trim: true,
     },
     emailId: {
       type: String,
