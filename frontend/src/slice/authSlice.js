@@ -29,10 +29,11 @@ export const loginUser = createAsyncThunk(
       // Return user and token
       return { user: response.data.user, token: response.data.token };
     } catch (err) {
-      // For other errors, reject with the error message
-      return rejectWithValue(
-        err.response?.data?.message || err.message || "Login failed"
-      );
+      // Normalize error into serializable shape
+      const message =
+        err.response?.data?.message || err.message || "Login failed";
+      const status = err.response?.status;
+      return rejectWithValue({ message, status });
     }
   }
 );
@@ -44,7 +45,9 @@ export const logutUser = createAsyncThunk(
       const response = await logout();
       return response.data.user;
     } catch (err) {
-      return rejectWithValue(err);
+      const message =
+        err.response?.data?.message || err.message || "Logout failed";
+      return rejectWithValue({ message });
     }
   }
 );
@@ -52,13 +55,26 @@ export const logutUser = createAsyncThunk(
 export const checkAuth = createAsyncThunk(
   "auth/check",
   async (_, { rejectWithValue }) => {
-    //_becuase we are not sending empty no data is going to db saving something all token thing validation.
     try {
       const response = await checkAuthApi();
       return response.data.user;
     } catch (err) {
-      return rejectWithValue(err);
+      const status = err.response?.status;
+      const message =
+        err.response?.data?.message ||
+        (status === 401
+          ? "Not authenticated"
+          : status === 403
+          ? "Forbidden"
+          : err.message || "Auth check failed");
+      return rejectWithValue({ message, status });
     }
+  },
+  {
+    condition: () => {
+      // Skip calling API if no token yet; prevents noisy 401 on fresh load
+      return !!localStorage.getItem("authToken");
+    },
   }
 );
 
@@ -220,7 +236,7 @@ const authSlice = createSlice({
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload?.message || "Something Went Wrong";
+        state.error = action.payload?.message || "Login failed";
         state.isAuthenticated = false;
         state.user = null;
       })
@@ -240,7 +256,7 @@ const authSlice = createSlice({
       })
       .addCase(logutUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload?.message || "Something Went Wrong";
+        state.error = action.payload?.message || "Logout failed";
         state.user = null;
         state.isAuthenticated = false;
       })
@@ -256,7 +272,7 @@ const authSlice = createSlice({
       })
       .addCase(checkAuth.rejected, (state, action) => {
         (state.loading = false),
-          (state.error = action.payload?.message || "Something Went Wrong");
+          (state.error = action.payload?.message || "Auth check failed");
         state.isAuthenticated = false;
         state.user = null;
       })
