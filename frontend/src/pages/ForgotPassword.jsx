@@ -39,19 +39,16 @@ const ForgotPassword = () => {
 
   const onSubmit = async (data) => {
     try {
-      const res = await dispatch(forgotPasswordThunk(data.emailId));
-
-      if (res?.meta?.requestStatus === "fulfilled") {
-        toast.success(
-          "Password reset link sent to your email. Please check your inbox and spam folder"
-        );
-        setIsSubmitted(true);
-      } else {
-        const errorMsg = res?.payload?.message || "Failed to send reset link.";
-        toast.error(errorMsg);
-      }
+      // unwrap throws on rejection giving us the serialized payload
+      const res = await dispatch(forgotPasswordThunk(data.emailId)).unwrap();
+      const msg =
+        res?.message ||
+        "Password reset link sent to your email. Please check your inbox and spam folder";
+      toast.success(msg, { autoClose: 4000 });
+      setIsSubmitted(true);
     } catch (err) {
-      toast.error("An unexpected error occurred.");
+      const msg = err?.message || err?.error || "Failed to send reset link.";
+      toast.error(msg, { autoClose: 5000 });
     }
   };
 
