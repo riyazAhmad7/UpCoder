@@ -38,7 +38,8 @@ const USE_RATE_LIMITER = process.env.ENABLE_RATE_LIMITER === "true";
 
 // Parse allowed origins from env (comma-separated), fallback to localhost and existing domain
 const allowedOrigins = (
-  process.env.ALLOWED_ORIGINS || "http://localhost:5173,https://UpCoder.live"
+  process.env.ALLOWED_ORIGINS ||
+  "http://localhost:5173,https://up-coder.vercel.app"
 )
   .split(",")
   .map((o) => o.trim().replace(/\/$/, ""))
