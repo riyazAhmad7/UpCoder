@@ -49,8 +49,11 @@ const register = async (req, res) => {
         .json({ success: false, message: "Passwords do not match" });
     }
 
+    // Normalize email (trim + lowercase) to avoid lookup/uniqueness issues
+    const normalizedEmail = emailId.trim().toLowerCase();
+
     // Check if user already exists
-    const existingUser = await User.findOne({ emailId: emailId.toLowerCase() });
+    const existingUser = await User.findOne({ emailId: normalizedEmail });
     if (existingUser) {
       return res.status(400).json({
         success: false,
@@ -64,17 +67,24 @@ const register = async (req, res) => {
     // Create new user
     const newUser = new User({
       firstName,
-      emailId: emailId.toLowerCase(),
+      emailId: normalizedEmail,
       password: hashedPassword,
     });
 
-    // Generate and set profile image
+    // Generate and set profile image (best-effort)
     if (!newUser.profileImage) {
-      const imageUrl = await generateProfileImage(
-        newUser.firstName,
-        newUser._id
-      );
-      newUser.profileImage = imageUrl;
+      try {
+        const imageUrl = await generateProfileImage(
+          newUser.firstName,
+          newUser._id
+        );
+        if (imageUrl) newUser.profileImage = imageUrl;
+      } catch (e) {
+        // Do not fail registration if image generation/upload fails
+        if (process.env.DEBUG_AUTH === "true") {
+          console.warn("Profile image generation failed:", e.message);
+        }
+      }
     }
 
     await newUser.save();
@@ -105,7 +115,27 @@ const register = async (req, res) => {
       token,
     });
   } catch (error) {
-    res.status(500).json({ success: false, message: "Internal server error" });
+    if (error && error.code === 11000) {
+      return res.status(400).json({
+        success: false,
+        message: "User with this email already exists",
+      });
+    }
+    if (error && error.name === "ValidationError") {
+      // Collect field messages
+      const messages = Object.values(error.errors).map((e) => e.message);
+      return res.status(400).json({
+        success: false,
+        message: messages[0] || "Invalid input",
+        errors: messages,
+      });
+    }
+    const debug = process.env.DEBUG_AUTH === "true";
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+      ...(debug && { error: error.message }),
+    });
   }
 };
 
@@ -119,19 +149,25 @@ const login = async (req, res) => {
       });
     }
 
-    const user = await User.findOne({ emailId: emailId.toLowerCase() });
+    // Normalize email (trim + lowercase) before lookup
+    const normalizedEmail = emailId.trim().toLowerCase();
+    const user = await User.findOne({ emailId: normalizedEmail });
     if (!user) {
+      const debug = process.env.DEBUG_AUTH === "true";
       return res.status(403).json({
         success: false,
         message: "Invalid email or password",
+        ...(debug && { reason: "USER_NOT_FOUND" }),
       });
     }
 
     const match = await bcrypt.compare(password, user.password);
     if (!match) {
+      const debug = process.env.DEBUG_AUTH === "true";
       return res.status(403).json({
         success: false,
         message: "Invalid email or password",
+        ...(debug && { reason: "PASSWORD_MISMATCH" }),
       });
     }
 
