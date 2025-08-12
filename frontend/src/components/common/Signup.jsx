@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { z } from "zod";
 import { useSelector, useDispatch } from "react-redux";
-import { registerThunk } from "../../slice/authSlice";
+import { registerThunk, getProfile } from "../../slice/authSlice";
 import { toast } from "react-toastify";
 import { EyeOff, Eye, ArrowLeft } from "lucide-react";
 
@@ -49,8 +49,14 @@ const Signup = () => {
     try {
       const resultAction = await dispatch(registerThunk(data));
       if (registerThunk.fulfilled.match(resultAction)) {
-        toast.success("Registration successful! Redirecting to login.");
-        navigate("/login");
+        const firstName = resultAction.payload?.user?.firstName || "";
+        toast.success(
+          `Welcome${firstName ? ", " + firstName : ""}! Account created.`
+        );
+        // Fetch extended profile data
+        dispatch(getProfile());
+        // Go straight to homepage since user is already authenticated
+        navigate("/");
       } else {
         const errorMsg =
           resultAction.payload?.message ||
