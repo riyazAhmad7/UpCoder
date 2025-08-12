@@ -47,9 +47,10 @@ const requestPasswordResetOTP = async (req, res) => {
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
-  
     const frontendBase = (
-      process.env.FRONTEND_URL || "http://localhost:5173"
+      (process.env.NODE_ENV === "development"
+        ? "http://localhost:5173"
+        : process.env.FRONTEND_URL) 
     ).replace(/\/$/, "");
     const resetLink = `${frontendBase}/reset-password/${token}`;
 
@@ -65,7 +66,7 @@ const requestPasswordResetOTP = async (req, res) => {
 
     res.status(200).json({
       success: true,
-      message: "Password reset link sent to email",
+      message: "Password reset link sent to your email. Please check your inbox and spam folder.",
     });
   } catch (error) {
     console.error("Error in requestPasswordResetOTP:", error);
@@ -89,10 +90,10 @@ const resetPassword = async (req, res) => {
       });
     }
 
-    if (newPassword.length < 6) {
+    if (newPassword.length < 8) {
       return res.status(400).json({
         success: false,
-        message: "Password must be at least 6 characters",
+        message: "Password must be at least 8 characters",
       });
     }
 
