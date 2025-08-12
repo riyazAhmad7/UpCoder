@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
-import {
-  getAllUsers,
-  updateAllUsersProfileImages,
-} from "../../utils/apis/adminApi";
+import { getAllUsers } from "../../utils/apis/adminApi";
 import { motion } from "framer-motion";
-import { FiSearch, FiXCircle } from "react-icons/fi";
+import { FiSearch } from "react-icons/fi";
 import { Link } from "react-router-dom";
 
 const UserManagement = () => {
@@ -13,7 +10,6 @@ const UserManagement = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [updateMessage, setUpdateMessage] = useState("");
 
   const fetchUsers = async () => {
     setLoading(true);
@@ -65,31 +61,14 @@ const UserManagement = () => {
           <h1 className="text-3xl font-bold text-orange-500">
             User Management
           </h1>
-          <div>
-            <button
-              onClick={async () => {
-                setUpdateMessage("Updating...");
-                const res = await updateAllUsersProfileImages();
-                setUpdateMessage(res.message);
-                fetchUsers();
-              }}
-              className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mr-2"
-            >
-              Update All Profile Images
-            </button>
-            <Link
-              to="/admin"
-              className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded"
-            >
-              Back to Admin
-            </Link>
-          </div>
+          <Link
+            to="/admin"
+            className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded"
+          >
+            Back to Admin
+          </Link>
         </div>
-        {updateMessage && (
-          <div className="text-center p-4 my-4 bg-gray-700 text-white rounded-lg">
-            {updateMessage}
-          </div>
-        )}
+       
         <div className="relative mb-6">
           <FiSearch className="absolute top-1/2 left-4 transform -translate-y-1/2 text-gray-400" />
           <input
@@ -113,9 +92,7 @@ const UserManagement = () => {
                 <th className="px-5 py-3 border-b-2 border-gray-700 bg-gray-800 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">
                   Joined
                 </th>
-                <th className="px-5 py-3 border-b-2 border-gray-700 bg-gray-800 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">
-                  Actions
-                </th>
+            
               </tr>
             </thead>
             <tbody>
@@ -151,11 +128,7 @@ const UserManagement = () => {
                       {new Date(user.createdAt).toLocaleDateString("en-GB")}
                     </p>
                   </td>
-                  <td className="px-5 py-5 border-b border-gray-700 bg-gray-800 text-sm">
-                    <button className="text-red-500 hover:text-red-700">
-                      <FiXCircle size={20} />
-                    </button>
-                  </td>
+             
                 </tr>
               ))}
             </tbody>
