@@ -10,7 +10,7 @@ import { EyeOff, Eye, ArrowLeft } from "lucide-react";
 
 const signupSchema = z
   .object({
-    firstName: z.string().min(2, "Name should contain at least 2 characters"),
+    firstName: z.string().min(3, "Name should contain at least 3 characters"),
     emailId: z.string().email("Invalid Email"),
     password: z
       .string()
@@ -53,7 +53,9 @@ const Signup = () => {
         navigate("/login");
       } else {
         const errorMsg =
-          resultAction.payload?.message || "Registration failed.";
+          resultAction.payload?.message ||
+          resultAction.error?.message ||
+          "Registration failed.";
         toast.error(errorMsg);
       }
     } catch (err) {
@@ -115,8 +117,9 @@ const Signup = () => {
                   {...register("emailId")}
                   placeholder="2143008@sliet.ac.in"
                 />
-                 <p id="email-help" className="text-xs text-gray-400 mt-1">
-                  We’ll use this email for password resets and important account notifications.
+                <p id="email-help" className="text-xs text-gray-400 mt-1">
+                  We’ll use this email for password resets and important account
+                  notifications.
                 </p>
                 {errors.emailId && (
                   <span className="text-red-400 text-sm mt-1 block">
