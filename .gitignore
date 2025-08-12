@@ -30,6 +30,7 @@ Thumbs.db
 backend/createAdmin.js
 backend/autoPostScript.js
 backend/ProblemList.json
+backend/contestProblem.json
 
 # Personal notes
 notes.txt
