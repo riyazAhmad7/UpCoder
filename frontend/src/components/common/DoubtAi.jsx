@@ -403,8 +403,6 @@ function DobutAi({ problem }) {
         setIsStreaming(false);
         return;
       }
-
-      // Use environment-based API base to support deployments where frontend and backend are on different origins
       const apiBase = import.meta.env.VITE_API_URL || "/api";
       const response = await fetch(`${apiBase.replace(/\/$/, "")}/ai/chat`, {
         method: "POST",
