@@ -1,8 +1,10 @@
 import axios from "axios";
 
+// Compute the API base URL once and export it for non-axios callers (e.g., fetch streams)
 const baseURL =
   import.meta.env.VITE_API_URL ||
   `${window.location.origin.replace(/\/$/, "")}/api`;
+export const apiBaseURL = baseURL;
 
 const axiosClient = axios.create({
   baseURL,

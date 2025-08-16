@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import { initializeSocket } from "../../utils/socket";
-import axiosClient from "../../utils/axiosClient";
+import axiosClient, { apiBaseURL } from "../../utils/axiosClient";
 function DobutAi({ problem }) {
   const dispatch = useDispatch();
   const { user, profileLoading, token } = useSelector((state) => state.auth);
@@ -71,8 +71,9 @@ function DobutAi({ problem }) {
   };
 
   const detectLanguage = (code) => {
-    // Simple language detection based on code patterns
-    if (code.includes("function")) return "javascript";
+    
+    if (code.includes("function"))
+      return "javascript";
     if (code.includes("def ") || code.includes("import ")) return "python";
     if (code.includes("public class") || code.includes("System.out.println"))
       return "java";
@@ -403,12 +404,12 @@ function DobutAi({ problem }) {
         setIsStreaming(false);
         return;
       }
-      const apiBase = import.meta.env.VITE_API_URL || "/api";
-      const response = await fetch(`${apiBase.replace(/\/$/, "")}/ai/chat`, {
-        method: "POST",
+
+  const response = await fetch(`${apiBaseURL}/ai/chat`, {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${authToken}`,
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${authToken}`
         },
         body: JSON.stringify({
           messages: [...messages, userMessage],
@@ -416,7 +417,7 @@ function DobutAi({ problem }) {
           description: problem?.description,
           testCases: problem?.visibleTestCases,
           startCode: problem?.startCode,
-        }),
+        })
       });
 
       if (!response.ok) {
@@ -588,8 +589,7 @@ function DobutAi({ problem }) {
               </span>
             </div>
           </div>
-        </div>{" "}
-      </div>
+        </div>      </div>
 
       {/* Messages */}
       <div className="flex-1 overflow-y-auto p-4 space-y-6 bg-gradient-to-b from-gray-900/80 via-gray-900 to-gray-900">
@@ -634,14 +634,8 @@ function DobutAi({ problem }) {
                       {msg.streaming && msg.parts[0].text.length === 0 ? (
                         <div className="flex items-center gap-2">
                           <div className="w-2 h-2 bg-orange-400 rounded-full animate-pulse"></div>
-                          <div
-                            className="w-2 h-2 bg-orange-400 rounded-full animate-pulse"
-                            style={{ animationDelay: "0.2s" }}
-                          ></div>
-                          <div
-                            className="w-2 h-2 bg-orange-400 rounded-full animate-pulse"
-                            style={{ animationDelay: "0.4s" }}
-                          ></div>
+                          <div className="w-2 h-2 bg-orange-400 rounded-full animate-pulse" style={{ animationDelay: '0.2s' }}></div>
+                          <div className="w-2 h-2 bg-orange-400 rounded-full animate-pulse" style={{ animationDelay: '0.4s' }}></div>
                         </div>
                       ) : (
                         formatMessage(msg.parts[0].text)
