@@ -68,6 +68,11 @@ const UserManagement = () => {
             Back to Admin
           </Link>
         </div>
+        {/* Total Users Summary */}
+        <div className="mb-4">
+          <span className="text-sm text-gray-400">Total Users:</span>
+          <span className="ml-2 text-lg font-semibold text-white">{users.length}</span>
+        </div>
        
         <div className="relative mb-6">
           <FiSearch className="absolute top-1/2 left-4 transform -translate-y-1/2 text-gray-400" />
