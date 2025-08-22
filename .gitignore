@@ -31,6 +31,8 @@ backend/createAdmin.js
 backend/autoPostScript.js
 backend/ProblemList.json
 backend/contestProblem.json
+backend/autoUser.js
+backend/postAutoUser.js
 
 # Personal notes
 notes.txt
