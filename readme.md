@@ -98,9 +98,7 @@ Help developers **master DSA**, **crack interviews**, and **compete globally** i
 
 ### 🏆 **Contest System**
 - Public & private contests
-- Real-time participation tracking
 - Automatic scoring based on correctness & speed
-- Live leaderboards with Socket.IO
 - Cron jobs for contest finalization
 
 ---
@@ -108,7 +106,7 @@ Help developers **master DSA**, **crack interviews**, and **compete globally** i
 ### 🤖 **AI-Powered Features**
 - AI coding assistant for problem-solving help
 - AI-generated code explanations
-- Voice/text platform navigation
+- Text platform navigation
 - AI-based mock interviews with real-time feedback
 - Resume-based personalized interview questions
 - Streaming AI responses with **Google Gemini API**
@@ -127,9 +125,7 @@ Help developers **master DSA**, **crack interviews**, and **compete globally** i
 
 ### 💬 **Community Features**
 - Problem-specific & general discussion forums
-- Real-time chat with Socket.IO
-- Typing indicators, message threading
-- Room-based discussion management
+- Comment system
 
 ---
 
@@ -137,7 +133,6 @@ Help developers **master DSA**, **crack interviews**, and **compete globally** i
 - Subscription tiers: Starter (₹199), Pro (₹499), Ultimate (₹799)
 - Unlimited AI usage, exclusive problems, advanced analytics
 - Secure payments with Razorpay
-- Webhooks for payment status updates
 
 ---
 
